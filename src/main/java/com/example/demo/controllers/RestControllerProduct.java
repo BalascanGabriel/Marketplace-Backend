@@ -41,4 +41,11 @@ public class RestControllerProduct {
 		return theProduct;
 	}
 	
+	@GetMapping("/by-id/{id}")
+	public Product selectById(@PathVariable("id") int idProduct) {
+		Product product = dao.findById(idProduct).get();
+		
+		return product;
+	}
+	
 }
