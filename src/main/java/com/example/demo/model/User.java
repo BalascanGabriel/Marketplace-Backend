@@ -2,6 +2,8 @@ package com.example.demo.model;
 
 import java.util.Date;
 
+import org.antlr.v4.runtime.misc.NotNull;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,7 +20,9 @@ public class User {
 	
 	private String name;
 	
+	@Column(name = "username")
 	private String username;
+	
 	
 	private String email;
 	

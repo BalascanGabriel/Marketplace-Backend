@@ -37,12 +37,12 @@ public class RestControllerUser {
     }
 	
 	  @PostMapping("/login")
-	    public ResponseEntity<String> login(@RequestParam String email, @RequestParam String password) {
-	        boolean authenticated = userService.authenticate(email, password);
+	    public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
+	        boolean authenticated = userService.authenticate(username, password);
 	        if (authenticated) {
 	            return ResponseEntity.ok("User authenticated");
 	        } else {
-	            return ResponseEntity.badRequest().body("Invalid email or password");
+	            return ResponseEntity.badRequest().body("Invalid name or password");
 	        }
 	    }
 }
