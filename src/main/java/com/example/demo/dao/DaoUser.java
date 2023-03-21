@@ -11,5 +11,8 @@ import com.example.demo.model.User;
 public interface DaoUser extends CrudRepository<User, Integer>{
 	
     Optional<User> findByUsername(String username);
+    Optional<User> findByToken(String token);
 
+    Optional<User> findByUsernameAndPassword(String username, String password);
+    // User findByUsernameAndPassword(String username, String password);
 }

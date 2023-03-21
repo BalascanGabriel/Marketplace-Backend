@@ -28,6 +28,8 @@ public class User {
 	
 	private String password;
 	
+	private String token;
+	
 	@Column(name = "date_added")
 	private Date dateAdded;
 
@@ -47,13 +49,7 @@ public class User {
 		this.name = name;
 	}
 
-	public String getUserName() {
-		return username;
-	}
 
-	public void setUserName(String username) {
-		this.username = username;
-	}
 
 	public String getEmail() {
 		return email;
@@ -78,6 +74,24 @@ public class User {
 	public void setDateAdded(Date dateAdded) {
 		this.dateAdded = dateAdded;
 	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+	
+	
 	
 	
 }

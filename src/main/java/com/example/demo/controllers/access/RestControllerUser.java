@@ -1,6 +1,9 @@
-package com.example.demo.controllers;
+package com.example.demo.controllers.access;
 
 
+import java.util.Optional;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,15 +35,22 @@ public class RestControllerUser {
 	 
 	@PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user) {
+		Optional<User> oldUser = userService.findByUsername(user.getUsername());
+		if(oldUser.isPresent()) {
+			return ResponseEntity.badRequest().build();
+		}
+		if(user.getPassword().length() < 3) {
+			return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).build();
+		}
         User newUser = userService.register(user);
         return ResponseEntity.ok(newUser);
     }
 	
 	  @PostMapping("/login")
-	    public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
-	        boolean authenticated = userService.authenticate(username, password);
-	        if (authenticated) {
-	            return ResponseEntity.ok("User authenticated");
+	    public ResponseEntity<String> login(@RequestBody User user) {
+	        String token = userService.authenticate(user.getUsername(), user.getPassword());
+	        if (token != null) {
+	            return ResponseEntity.ok(token);
 	        } else {
 	            return ResponseEntity.badRequest().body("Invalid name or password");
 	        }
