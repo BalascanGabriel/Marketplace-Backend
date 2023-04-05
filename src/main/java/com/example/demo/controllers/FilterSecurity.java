@@ -20,6 +20,8 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+// @Component => toate request-urile sunt interceptate de filtersecurity
+// WebFilter(urlPatterns={"/rest-secured/*"})
 public class FilterSecurity implements Filter {
 
 	private UserService service;
@@ -37,8 +39,16 @@ public class FilterSecurity implements Filter {
 
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
+		
+		if(req.getMethod().toUpperCase().equals("OPTIONS")) {
+			System.out.println("OPTIONS REQUEST");
+			res.setStatus(200);
+			chain.doFilter(request, response);
+			return;
+		}
+		
 		String token = req.getHeader("myToken");
-
+		System.out.println("REGULAR TOKEN REQUEST");
 //		if(securedPaths.contains(req.getRequestURI())) {
 
 		if (token == null) {

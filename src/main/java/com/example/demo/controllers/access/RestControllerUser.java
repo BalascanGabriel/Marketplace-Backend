@@ -19,6 +19,7 @@ import com.example.demo.services.UserService;
 @RestController
 @RequestMapping("/rest/users")
 @CrossOrigin(value = {"http://localhost:4200/"})
+
 public class RestControllerUser {
 	
 	 private final UserService userService;
