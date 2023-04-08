@@ -21,7 +21,8 @@ public class Configurare {
 		FilterRegistrationBean<FilterSecurity> registrationBean = new FilterRegistrationBean<>();
 
 		registrationBean.setFilter(new FilterSecurity(service));
-		registrationBean.addUrlPatterns("/rest-secured/*");
+//		registrationBean.addUrlPatterns("/rest-secured/*");
+		registrationBean.addUrlPatterns("/randomrest-secured/*");
 		registrationBean.setOrder(2);
 
 		return registrationBean;
