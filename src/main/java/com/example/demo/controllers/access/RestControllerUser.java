@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dto.LoginDto;
 import com.example.demo.model.User;
 import com.example.demo.services.UserService;
 
@@ -48,12 +48,15 @@ public class RestControllerUser {
     }
 	
 	  @PostMapping("/login")
-	    public ResponseEntity<String> login(@RequestBody User user) {
+	    public ResponseEntity<LoginDto> login(@RequestBody User user) {
 	        String token = userService.authenticate(user.getUsername(), user.getPassword());
+	        LoginDto dto = new LoginDto();
 	        if (token != null) {
-	            return ResponseEntity.ok(token);
-	        } else {
-	            return ResponseEntity.badRequest().body("Invalid name or password");
-	        }
+	        	dto.setToken(token);
+	        	dto.setUsername(user.getUsername());
+	            return ResponseEntity.ok(dto);
+	        } 
+	        return ResponseEntity.badRequest().build();
+	        
 	    }
 }
