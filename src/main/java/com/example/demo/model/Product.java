@@ -16,7 +16,11 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@Column(name="name")
 	private String name;
+	
+	@Column(name="price")
 	private Double price;
 	
 	@Column(name="date_added")

@@ -1,0 +1,2 @@
+la logout ar trebui sa se stearga token din db (endpoint DELETE)
+frontend raspunde doar dupa ce request-ul de delete e successful
