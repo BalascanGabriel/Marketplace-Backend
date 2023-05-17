@@ -21,6 +21,7 @@ public interface DaoCart extends CrudRepository<Cart, Integer>{
 	
 	public List<Cart> findByUserId(int userId);
 	public List<Cart> findByUserToken(String token);
+	// public Optional<Cart> findByProductAndUser(Product prod, User user);
 	
 
 }
