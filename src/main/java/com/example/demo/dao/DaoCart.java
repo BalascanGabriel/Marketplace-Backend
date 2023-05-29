@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -21,6 +22,9 @@ public interface DaoCart extends CrudRepository<Cart, Integer>{
 	
 	public List<Cart> findByUserId(int userId);
 	public List<Cart> findByUserToken(String token);
+	
+	public Optional<Cart>findByUserIdAndProductId(int userId, int productId);
+	
 	// public Optional<Cart> findByProductAndUser(Product prod, User user);
 	
 

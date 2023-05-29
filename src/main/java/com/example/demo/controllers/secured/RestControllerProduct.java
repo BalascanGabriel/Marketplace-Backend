@@ -9,7 +9,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -69,6 +68,7 @@ public class RestControllerProduct {
 		if(product.getId() == null) {
 			return ResponseEntity.badRequest().build();
 		}
+		
 		return ResponseEntity.ok(dao.save(product));
 	}
 	
@@ -77,6 +77,9 @@ public class RestControllerProduct {
 		if(product.getId() != null) {
 			return ResponseEntity.badRequest().build();
 
+		}
+		if(product.getName() == null || product.getName().isEmpty()) {
+			return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).build();
 		}
 		product.setDateAdded(new Date());
 		return ResponseEntity.ok(dao.save(product));
@@ -110,6 +113,13 @@ public class RestControllerProduct {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		}
 		System.out.println("Adding to cart: " + productToAdd);
+		
+		Optional<Cart> alreadyExistingCartRow = this.daoCart.findByUserIdAndProductId(userLogat.get().getId(), productToAdd.getId());
+		if(alreadyExistingCartRow.isPresent()) {
+//			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+			return ResponseEntity.badRequest().build();
+		}
+		
 		Cart cartRow = new Cart();
 		cartRow.setProduct(productToAdd);
 		cartRow.setQuantity(1);
